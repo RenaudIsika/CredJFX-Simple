@@ -6,10 +6,10 @@ import java.util.List;
 import isika.cda.crudJFX.models.Article;
 
 public class ArticlesDataSet {
-	private static final String LIVRE = "Livre";
-	private static final String VINYLE = "Vinyle";
-	private static final String DISK = "Cd / Dvd";
-	private static final String BLURAY = "BluRay";
+	public static final String LIVRE = "Livre";
+	public static final String VINYLE = "Vinyle";
+	public static final String DISK = "Cd/Dvd";
+	public static final String BLURAY = "BluRay";
 
 	private List<Article> articles;
 
@@ -69,4 +69,6 @@ public class ArticlesDataSet {
 		destinationArticle.setPrix(sourceArticle.getPrix());
 		destinationArticle.setType(sourceArticle.getType());
 	}
+	
+	
 }

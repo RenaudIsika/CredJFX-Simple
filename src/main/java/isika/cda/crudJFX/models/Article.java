@@ -24,6 +24,12 @@ public class Article {
 		this.prix = prix;
 		this.poids = poids;
 	}
+	
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", nom=" + nom + ", artiste=" + artiste + ", type=" + type + ", prix=" + prix
+				+ ", poids=" + poids + "]";
+	}
 
 	public String getNom() {
 		return nom;
