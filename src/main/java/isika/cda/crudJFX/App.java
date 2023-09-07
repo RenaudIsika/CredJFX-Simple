@@ -1,8 +1,8 @@
-package isika.cda.crudJFX;
+package isika.cda.crudjfx;
 
-import isika.cda.crudJFX.components.BorderPaneTable;
-import isika.cda.crudJFX.components.GridPaneFormulaire;
-import isika.cda.crudJFX.models.Article;
+import isika.cda.crudjfx.components.BorderPaneTable;
+import isika.cda.crudjfx.components.GridPaneFormulaire;
+import isika.cda.crudjfx.models.Article;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
@@ -32,6 +32,9 @@ public class App extends Application {
 			gpFormulaire.getTfPrix().setText(newSelection.getPrix().toString());
 			gpFormulaire.getTfPoids().setText(newSelection.getPoids().toString());
 			gpFormulaire.setToggleButton(newSelection.getType());
+			gpFormulaire.getBtnAjouter().setDisable(true);
+			gpFormulaire.getBtnSupprimer().setDisable(false);
+			gpFormulaire.getBtnMaj().setDisable(false);
 		});
 
 		var scene = new Scene(vbMain, 1024, 768);

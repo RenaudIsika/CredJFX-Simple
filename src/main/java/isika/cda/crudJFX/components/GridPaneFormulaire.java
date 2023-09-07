@@ -1,7 +1,7 @@
-package isika.cda.crudJFX.components;
+package isika.cda.crudjfx.components;
 
-import isika.cda.crudJFX.ArticlesDataSet;
-import isika.cda.crudJFX.models.Article;
+import isika.cda.crudjfx.models.Article;
+import isika.cda.crudjfx.ArticlesDataSet;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -27,9 +27,10 @@ public class GridPaneFormulaire extends GridPane {
 	
 	private ToggleGroup tgType;
 
-	private Button btnAjouter = new Button("Ajouter");
-	private Button btnSupprimer = new Button("Supprimer");
-	private Button btnMaj = new Button("Mettre à jour");
+	private Button btnAjouter;
+	private Button btnSupprimer;
+	private Button btnMaj;
+	private Button btnReset;
 
 	public GridPaneFormulaire(ArticlesDataSet articlesDS, TableView<Article> table) {
 
@@ -100,13 +101,16 @@ public class GridPaneFormulaire extends GridPane {
 		// Boutons
 		HBox hbActionBtn = new HBox();
 
+		btnAjouter = new Button("Ajouter");
 		btnAjouter.setMaxWidth(REMAINING);
+		btnSupprimer = new Button("Supprimer");
 		btnSupprimer.setMaxWidth(REMAINING);
+		btnMaj = new Button("Mettre à jour");
 		btnMaj.setMaxWidth(REMAINING);
-
-		hbActionBtn.getChildren().addAll(btnAjouter);
-		hbActionBtn.getChildren().addAll(btnSupprimer);
-		hbActionBtn.getChildren().addAll(btnMaj);
+		btnReset = new Button("Reset");
+		btnReset.setMaxWidth(REMAINING);
+		
+		hbActionBtn.getChildren().addAll(btnAjouter, btnSupprimer, btnMaj, btnReset);
 		hbActionBtn.setMaxSize(REMAINING, REMAINING);
 		hbActionBtn.setPrefHeight(BASELINE_OFFSET_SAME_AS_HEIGHT);
 		this.add(hbActionBtn, 0, 8, 3, 1);
@@ -118,6 +122,7 @@ public class GridPaneFormulaire extends GridPane {
 			
 			System.out.println("Article ajouté au DataSet " + monArticle);
 			table.refresh();
+			reinitForm();
 		});
 
 		btnSupprimer.setOnAction(ae -> {
@@ -128,7 +133,7 @@ public class GridPaneFormulaire extends GridPane {
 
 			System.out.println("Article retiré du DataSet - Référence : " + monArticle);
 			table.refresh();
-
+			reinitForm();
 		});
 
 		btnMaj.setOnAction(ae -> {
@@ -138,6 +143,11 @@ public class GridPaneFormulaire extends GridPane {
 			
 			System.out.println("Article mis à jour : " + monArticle);
 			table.refresh();
+			reinitForm();
+		});
+		
+		btnReset.setOnAction(ae -> {
+			reinitForm();
 		});
 
 	}
@@ -145,11 +155,32 @@ public class GridPaneFormulaire extends GridPane {
 	private Article getArticleFromForm() {
 		Toggle selectedToggle = tgType.getSelectedToggle();
 		String typeArticle = (String) selectedToggle.getUserData();
-
-		Article monArticle = new Article(tfNom.getText(), tfArtiste.getText(), typeArticle,
-				Double.parseDouble(tfPrix.getText()), Integer.parseInt(tfPoids.getText()));
-
+		int articleId;
+		Article monArticle;
+		
+		try {
+			articleId = Integer.parseInt(tfRef.getText());
+			monArticle = new Article(articleId, tfNom.getText(), tfArtiste.getText(), typeArticle,
+					Double.parseDouble(tfPrix.getText()), Integer.parseInt(tfPoids.getText()));
+		} catch (NumberFormatException e) {
+			monArticle = new Article(tfNom.getText(), tfArtiste.getText(), typeArticle,
+					Double.parseDouble(tfPrix.getText()), Integer.parseInt(tfPoids.getText()));
+		}
+		
 		return monArticle;
+	}
+	
+	private void reinitForm() {
+		tfRef.setText("Référence");
+		tfNom.setText("Nom");
+		tfArtiste.setText("Artiste");
+		tgType.selectToggle(null);
+		tfPrix.setText("Prix");
+		tfPoids.setText("Poids");
+		
+		btnAjouter.setDisable(false);
+		btnSupprimer.setDisable(true);
+		btnMaj.setDisable(true);
 	}
 
 	public void setToggleButton(String type) {
@@ -158,7 +189,7 @@ public class GridPaneFormulaire extends GridPane {
 		tbVinyle.setSelected(type.equals(ArticlesDataSet.VINYLE));
 		tbDisque.setSelected(type.equals(ArticlesDataSet.DISK));
 	}
-	
+		
 	public TextField getTfRef() {
 		return tfRef;
 	}
@@ -177,6 +208,18 @@ public class GridPaneFormulaire extends GridPane {
 
 	public TextField getTfPoids() {
 		return tfPoids;
+	}
+
+	public Button getBtnAjouter() {
+		return btnAjouter;
+	}
+
+	public Button getBtnSupprimer() {
+		return btnSupprimer;
+	}
+
+	public Button getBtnMaj() {
+		return btnMaj;
 	}
 
 }

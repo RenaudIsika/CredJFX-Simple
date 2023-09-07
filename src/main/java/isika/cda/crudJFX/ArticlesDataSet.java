@@ -1,9 +1,9 @@
-package isika.cda.crudJFX;
+package isika.cda.crudjfx;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import isika.cda.crudJFX.models.Article;
+import isika.cda.crudjfx.models.Article;
 
 public class ArticlesDataSet {
 	public static final String LIVRE = "Livre";
@@ -33,7 +33,7 @@ public class ArticlesDataSet {
 
 	public Article findById(int id) {
 		for (Article article : articles) {
-			if (article.getId() == id) {
+			if (article.getId().equals(id)) {
 				return article;
 			}
 		}
@@ -65,10 +65,9 @@ public class ArticlesDataSet {
 
 	private void mapArticles(Article sourceArticle, Article destinationArticle) {
 		destinationArticle.setNom(sourceArticle.getNom());
+		destinationArticle.setArtiste(sourceArticle.getArtiste());
 		destinationArticle.setPoids(sourceArticle.getPoids());
 		destinationArticle.setPrix(sourceArticle.getPrix());
 		destinationArticle.setType(sourceArticle.getType());
 	}
-	
-	
 }

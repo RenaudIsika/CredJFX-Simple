@@ -1,4 +1,4 @@
-package isika.cda.crudJFX.models;
+package isika.cda.crudjfx.models;
 
 public class Article {
 	
@@ -13,6 +13,16 @@ public class Article {
 	
 	public Article() {
 		
+	}
+	
+	public Article(Integer id, String nom, String artiste, String type, Double prix, Integer poids) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.artiste = artiste;
+		this.type = type;
+		this.prix = prix;
+		this.poids = poids;
 	}
 	
 	public Article(String nom, String artiste, String type, Double prix, Integer poids) {

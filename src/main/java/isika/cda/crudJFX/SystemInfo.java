@@ -1,4 +1,4 @@
-package isika.cda.crudJFX;
+package isika.cda.crudjfx;
 
 public class SystemInfo {
 

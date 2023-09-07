@@ -1,7 +1,7 @@
-package isika.cda.crudJFX.components;
+package isika.cda.crudjfx.components;
 
-import isika.cda.crudJFX.ArticlesDataSet;
-import isika.cda.crudJFX.models.Article;
+import isika.cda.crudjfx.models.Article;
+import isika.cda.crudjfx.ArticlesDataSet;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
